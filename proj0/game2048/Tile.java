@@ -25,7 +25,8 @@ public class Tile {
         return col;
     }
 
-    /** Return the value supplied to my constructor. */
+    /** Return the value supplied to my constructor.
+     * Only this will be used*/
     public int value() {
         return value;
     }

@@ -174,9 +174,34 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i++) {
+            for (int j = 0; j < b.size(); j++) {
+                if (b.tile(i, j) == null) {
+                    return true;
+                }
+                if (hasAdjacentEqual(b.tile(i, j), b)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
+    /** Check if the passed in tile has any adjacent tile with same value*/
+    public static boolean hasAdjacentEqual(Tile t, Board b) {
+        int[][] adjacent = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        for (int i = 0; i < b.size(); i++) {
+            int adjacentR = t.row() + adjacent[i][0];
+            int adjacentC = t.col() + adjacent[i][1];
+            if (adjacentR >= 0 && adjacentR < b.size() &&
+                    adjacentC >= 0 &&  adjacentC < b.size()) {
+                if (t.value() == b.tile(adjacentC, adjacentR).value()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     @Override
      /** Returns the model as a string, used for debugging. */

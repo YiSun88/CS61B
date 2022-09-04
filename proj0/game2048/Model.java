@@ -106,11 +106,11 @@ public class Model extends Observable {
      *    value, then the leading two tiles in the direction of motion merge,
      *    and the trailing tile does not.
      * */
-    public int moveToR(Tile t, boolean[] mergedTiles) {
-        for (int r = t.row() +1; r < board.size(); r++) {
-            if (board.tile(t.col(), r) == null) {
+    public int moveToR(Tile t, int col, int row, boolean[] mergedTiles) {
+        for (int r = row +1; r < board.size(); r++) {
+            if (board.tile(col, r) == null) {
                 continue;
-            } else if (board.tile(t.col(), r).value() != t.value()) {
+            } else if (board.tile(col, r).value() != t.value()) {
                 return r - 1;
             } else {
                 if (!mergedTiles[r]) {
@@ -131,6 +131,7 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        board.setViewingPerspective(side);
         /** Iterate through each column, from top to bottom */
         for (int c = 0; c < board.size(); c++) {
             boolean[] mergedTiles = new boolean[board.size()];
@@ -139,11 +140,14 @@ public class Model extends Observable {
                     continue;
                 }
                 // To do: when current tile is not empty
-                int newR = moveToR(board.tile(c, r), mergedTiles);
-                board.move(c, newR, board.tile(c, r));
-                changed = true;
+                int newR = moveToR(board.tile(c, r), c, r, mergedTiles);
+                if (newR != r) {
+                    board.move(c, newR, board.tile(c, r));
+                    changed = true;
+                }
             }
         }
+        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
@@ -226,7 +230,7 @@ public class Model extends Observable {
             int adjacentC = t.col() + adjacent[i][1];
             if (adjacentR >= 0 && adjacentR < b.size() &&
                     adjacentC >= 0 &&  adjacentC < b.size()) {
-                if (t.value() == b.tile(adjacentC, adjacentR).value()) {
+                if (b.tile(adjacentC, adjacentR) != null && t.value() == b.tile(adjacentC, adjacentR).value()) {
                     return true;
                 }
             }

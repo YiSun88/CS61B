@@ -131,8 +131,11 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        /** Set the current view per passed in side, the side on the top*/
         board.setViewingPerspective(side);
-        /** Iterate through each column, from top to bottom */
+        /** Iterate through each column, from top to bottom. All coordinates used below are
+         * the reorientated ones to side s. methods like tile() and move() take in arguments
+         * with reorientated coordinates.*/
         for (int c = 0; c < board.size(); c++) {
             boolean[] mergedTiles = new boolean[board.size()];
             for (int r = board.size() - 1; r >=0; r--) {

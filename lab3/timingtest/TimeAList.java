@@ -31,7 +31,7 @@ public class TimeAList {
          * record the time using Stopwatch. Add the data size and ops times (N, ops)
          * and time to corresponding ALists*/
         int n = 1000;
-        while (n <= 12800000) {
+        while (n <= 128000) {
             Stopwatch sw = new Stopwatch();
             AList<Integer> test = new AList<>();
             for (int i = 0; i < n; i++) {

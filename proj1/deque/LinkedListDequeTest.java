@@ -1,5 +1,6 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -15,7 +16,7 @@ public class LinkedListDequeTest {
     public void addIsEmptySizeTest() {
 
         System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        /*
+
         LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
 
 		assertTrue("A newly initialized LLDeque should be empty", lld1.isEmpty());
@@ -34,7 +35,7 @@ public class LinkedListDequeTest {
 
 		System.out.println("Printing out deque: ");
 		lld1.printDeque();
-		*/
+
     }
 
     @Test
@@ -42,7 +43,7 @@ public class LinkedListDequeTest {
     public void addRemoveTest() {
 
         System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        /*
+
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
 		// should be empty
 		assertTrue("lld1 should be empty upon initialization", lld1.isEmpty());
@@ -54,7 +55,7 @@ public class LinkedListDequeTest {
 		lld1.removeFirst();
 		// should be empty
 		assertTrue("lld1 should be empty after removal", lld1.isEmpty());
-        */
+
     }
 
     @Test
@@ -62,7 +63,7 @@ public class LinkedListDequeTest {
     public void removeEmptyTest() {
 
         System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        /*
+
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
         lld1.addFirst(3);
 
@@ -77,14 +78,14 @@ public class LinkedListDequeTest {
         errorMsg += "  actual size() returned 0\n";
 
         assertEquals(errorMsg, 0, size);
-        */
+
     }
 
     @Test
     /* Check if you can create LinkedListDeques with different parameterized types*/
     public void multipleParamTest() {
 
-        /*
+
         LinkedListDeque<String>  lld1 = new LinkedListDeque<String>();
         LinkedListDeque<Double>  lld2 = new LinkedListDeque<Double>();
         LinkedListDeque<Boolean> lld3 = new LinkedListDeque<Boolean>();
@@ -96,7 +97,7 @@ public class LinkedListDequeTest {
         String s = lld1.removeFirst();
         double d = lld2.removeFirst();
         boolean b = lld3.removeFirst();
-        */
+
     }
 
     @Test
@@ -135,5 +136,71 @@ public class LinkedListDequeTest {
         }
 
         */
+    }
+
+    @Test
+    public void addFirstAddLastTest() {
+        LinkedListDeque<Integer> test1 = new LinkedListDeque<>();
+        test1.addFirst(1);
+        test1.addLast(2);
+        assertEquals(2, test1.size());
+    }
+
+    @Test
+    public void isEmptyTest() {
+        LinkedListDeque<Integer> test1 = new LinkedListDeque<>();
+        assertTrue(test1.isEmpty());
+    }
+
+    @Test
+    public void printTest() {
+        LinkedListDeque<Integer> test1 = new LinkedListDeque<>();
+        test1.addFirst(1);
+        test1.addLast(2);
+        test1.printDeque();
+    }
+
+    @Test
+    public void removeFirstTest() {
+        LinkedListDeque<Integer> test1 = new LinkedListDeque<>();
+        test1.addFirst(2);
+        test1.addFirst(1);
+        test1.addLast(3);
+        int removed = test1.removeFirst();
+        assertEquals(2, test1.size());
+        assertEquals(1, removed);
+    }
+
+    @Test
+    public void removeLastTest() {
+        LinkedListDeque<Integer> test1 = new LinkedListDeque<>();
+        test1.addFirst(2);
+        test1.addFirst(1);
+        test1.addLast(3);
+        int removed = test1.removeLast();
+        assertEquals(2, test1.size());
+        assertEquals(3, removed);
+    }
+
+    @Test
+    public void getTest() {
+        LinkedListDeque<Integer> test1 = new LinkedListDeque<>();
+        int N = 500;
+        for (int i = 0; i < N; i++) {
+            int operationNumber = StdRandom.uniform(0, 2);
+            if (operationNumber == 0) {
+                int ranVal = StdRandom.uniform(0, 100);
+                test1.addFirst(ranVal);
+            } else if (operationNumber == 1) {
+                int ranVal = StdRandom.uniform(0, 100);
+                test1.addLast(ranVal);
+            }
+        }
+        for (int i = 0; i < N; i++) {
+            int ranIndex = StdRandom.uniform(0, N);
+            int returned1 = test1.get(ranIndex);
+            int returned2 = test1.getRecursive(ranIndex);
+            assertEquals(returned1, returned2);
+        }
     }
 }

@@ -85,6 +85,7 @@ public class LinkedListDeque<Type> implements Deque<Type>, Iterable<Type>{
     }
 
     /** Add an item to the last position of the linked list*/
+    @Override
     public void addLast(Type x) {
         Node added = new Node(x, sentinel.previous, sentinel);
         sentinel.previous.next = added;
@@ -93,19 +94,22 @@ public class LinkedListDeque<Type> implements Deque<Type>, Iterable<Type>{
     }
 
     /** Get the size of linked list*/
+    @Override
     public int size() {
         return size;
     }
 
     /** Check if the linked list is empty*/
-    public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean isEmpty() {
+//        if (size == 0) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     /** Print the items in the linked list*/
+    @Override
     public void printDeque() {
         if (size == 0) {
             return;
@@ -119,6 +123,7 @@ public class LinkedListDeque<Type> implements Deque<Type>, Iterable<Type>{
     }
 
     /** Remove the first item */
+    @Override
     public Type removeFirst() {
         if (size == 0) {
             return null;
@@ -131,6 +136,7 @@ public class LinkedListDeque<Type> implements Deque<Type>, Iterable<Type>{
     }
 
     /** Remove the last item */
+    @Override
     public Type removeLast() {
         if (size == 0) {
             return null;
@@ -143,6 +149,7 @@ public class LinkedListDeque<Type> implements Deque<Type>, Iterable<Type>{
     }
 
     /** Get the item at index */
+    @Override
     public Type get(int index) {
         if (index > size - 1) {
             return null;

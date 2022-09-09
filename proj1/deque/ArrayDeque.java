@@ -72,6 +72,7 @@ public class ArrayDeque<Type> implements Deque<Type>, Iterable<Type> {
     }
 
     /** Add an item to front of the Array List */
+    @Override
     public void addFirst(Type x) {
         if (size == items.length) {
             Type[] resizedArray = resize(size * 2);
@@ -88,6 +89,7 @@ public class ArrayDeque<Type> implements Deque<Type>, Iterable<Type> {
     }
 
     /** Add an item to end of the Array List */
+    @Override
     public void addLast(Type x) {
         if (size == items.length) {
             Type[] resizedArray = resize(size * 2);
@@ -104,19 +106,22 @@ public class ArrayDeque<Type> implements Deque<Type>, Iterable<Type> {
     }
 
     /** Get size of the Array List */
+    @Override
     public int size() {
         return size;
     }
 
     /** Check if the Array List is empty */
-    public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean isEmpty() {
+//        if (size == 0) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     /** Print items in the Array List */
+    @Override
     public void printDeque() {
         for (int i = 1; i <= size; i++) {
             System.out.print(items[trueIndex(nextFirst + i)] + " ");
@@ -125,6 +130,7 @@ public class ArrayDeque<Type> implements Deque<Type>, Iterable<Type> {
     }
 
     /** Remove first item in the Array List */
+    @Override
     public Type removeFirst() {
         if (size == 0) {
             return null;
@@ -150,6 +156,7 @@ public class ArrayDeque<Type> implements Deque<Type>, Iterable<Type> {
     }
 
     /** Remove last item in the Array List */
+    @Override
     public Type removeLast() {
         if (size == 0) {
             return null;
@@ -175,6 +182,7 @@ public class ArrayDeque<Type> implements Deque<Type>, Iterable<Type> {
     }
 
     /** Get the item at index index */
+    @Override
     public Type get(int index) {
         if (index < 0 || index > size - 1) {
             return null;

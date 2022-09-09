@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<Type> {
+import java.util.Iterator;
+
+public class ArrayDeque<Type> implements Deque<Type>, Iterable<Type> {
     private Type[] items;
     private int size;
     private int nextFirst;
@@ -23,6 +25,50 @@ public class ArrayDeque<Type> {
     private Type[] resize(int capacity) {
         Type[] resizedArray = (Type []) new Object[capacity];
         return resizedArray;
+    }
+
+    /** Iterator Class*/
+    private class arrayIterator implements Iterator<Type> {
+        int currentIndex = 0;
+        @Override
+        public boolean hasNext() {
+            if (this.currentIndex < size) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public Type next() {
+            Type returnedItem = items[trueIndex(nextFirst + currentIndex + 1)];
+            currentIndex++;
+            return returnedItem;
+        }
+    }
+
+    /** Override the iterator creator */
+    @Override
+    public Iterator<Type> iterator() {
+        return new arrayIterator();
+    }
+
+    /** Override Object.equals method*/
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Deque)) {
+            return false;
+        }
+        Deque list = (Deque) o;
+        if (this.size != list.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            boolean sameItemI = this.get(i).equals(list.get(i));
+            if (!sameItemI) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** Add an item to front of the Array List */
@@ -136,5 +182,4 @@ public class ArrayDeque<Type> {
         int actualIndex = trueIndex(nextFirst + 1 + index);
         return items[actualIndex];
     }
-
 }

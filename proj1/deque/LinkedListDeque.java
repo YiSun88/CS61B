@@ -1,6 +1,8 @@
 package deque;
 
-public class LinkedListDeque<Type> {
+import java.util.Iterator;
+
+public class LinkedListDeque<Type> implements Deque<Type>, Iterable<Type>{
 
     /** Nested class for each node in the linked list*/
     private class Node {
@@ -16,6 +18,51 @@ public class LinkedListDeque<Type> {
         }
     }
 
+    /** Helper class iterator*/
+    private class LinkedListIterator implements Iterator<Type> {
+        private Node iteratorP = sentinel;
+
+        @Override
+        public boolean hasNext() {
+            if (iteratorP.next != sentinel) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public Type next() {
+            Type returned = iteratorP.next.item;
+            iteratorP = iteratorP.next;
+            return returned;
+        }
+    }
+
+    /** Constructor for iterator LinkedListIterator*/
+    @Override
+    public Iterator<Type> iterator() {
+        return new LinkedListIterator();
+    }
+
+    /** Method for equals */
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Deque)) {
+            return false;
+        }
+        Deque list = (Deque) o;
+        if (this.size != list.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            boolean sameItemI = this.get(i).equals(list.get(i));
+            if (!sameItemI) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /** Instance variables for Linked List*/
     private Node sentinel;
     private int size;
@@ -29,6 +76,7 @@ public class LinkedListDeque<Type> {
     }
 
     /** Add an item to the first position of the linked list*/
+    @Override
     public void addFirst(Type x) {
         Node added = new Node(x, sentinel, sentinel.next);
         sentinel.next.previous = added;

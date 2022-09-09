@@ -280,4 +280,15 @@ public class ArrayDequeTest {
             }
         }
     }
+
+    @Test
+    public void iteratorTest() {
+        ArrayDeque<Integer> test1 = new ArrayDeque<>();
+        test1.addFirst(2);
+        test1.addFirst(1);
+        test1.addLast(3);
+        for (int i : test1) {
+            System.out.println(i);
+        }
+    }
 }
